@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -42,10 +43,10 @@ public class Main {
     public static void initFrame(Panel panel, Button button) {
         Frame frame = new Frame("SortAlgorithm");
         frame.addWindowListener(new AdapterDemo());
-        frame.setLayout(new FlowLayout());
+        frame.setLayout(new BorderLayout(10, 10));
 
-        frame.add(panel);
-        frame.add(button);
+        frame.add(panel, BorderLayout.CENTER);
+        frame.add(button, BorderLayout.EAST);
 
         frame.pack();
         frame.setVisible(true);
@@ -53,11 +54,17 @@ public class Main {
 
     public static Button newButton(Sort[] sorts) {
         Button button = new Button("start");
+        button.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
         button.addActionListener(e -> {
-            for (int i = 0; i < sorts.length; i++) {
-                if (sorts[i] != null) {
+            try {
+                for (int i = 0; i < sorts.length; i++) {
                     sorts[i].start();
                 }
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null,
+                        "Please restart the application to regenerate data",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE);
             }
         });
 
